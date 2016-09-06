@@ -41,7 +41,7 @@ class RtmEventHandler(object):
             
             #if self.clients.is_bot_mention(msg_txt):
                 # e.g. user typed: "@pybot tell me a joke!"
-            if 'help' in msg_txt:
+            if msg_txt.lower()=='help':
                 self.msg_writer.write_help_message(event['channel'])
             elif 'setmylocation' in msg_txt:
                 self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
@@ -50,9 +50,5 @@ class RtmEventHandler(object):
             elif 'viewlocation' in msg_txt:
                 self.msg_writer.viewlocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
                     
-            elif 'joke' in msg_txt:
-                self.msg_writer.write_joke(event['channel'])
-            elif 'attachment' in msg_txt:
-                self.msg_writer.demo_attachment(event['channel'])
             else:
                 self.msg_writer.write_prompt(event['channel'])
