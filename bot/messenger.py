@@ -25,12 +25,9 @@ class Messenger(object):
         r = requests.get('https://slack.com/api/users.info', params=payload)
         username = str(r.json()['user']['name'])
         userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
-        #userdict[user_id]=[username,location,datetime.now(timezone('US/Eastern')).strftime('%H:%M:%S %m/%d/%y')]
         os.environ['TZ'] = 'US/Eastern'
         time.tzset()
         userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
-        #userdict[user_id]=[username,location,datetime.now().strftime("%H:%M:%S %m/%d/%y")]
-        #
         txt = "Your location was set to " + userdict[user_id][1] + " as of " + userdict[user_id][2]
         self.send_message(channel_id, txt)
         
@@ -59,12 +56,13 @@ class Messenger(object):
                 self.send_message(channel_id, txt)
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
-        txt = '{}\n{}\n{}\n{}\n{}'.format(
+        txt = '{}\n{}\n{}\n{}\n{}\n{}'.format(
             "Available commands:",
             "> `setmylocation [location]` - Set your location",
             "> `viewmylocation` - View what your own location is set as",
             "> `viewlocation [username]` - View location of user",
-            "> `viewlocation all` - View location of all users")
+            "> `viewlocation all` - View location of all users",
+            "please note: location can only be one word")
         self.send_message(channel_id, txt)
 
     def write_prompt(self, channel_id):
