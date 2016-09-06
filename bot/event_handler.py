@@ -39,20 +39,20 @@ class RtmEventHandler(object):
             msg_txt = event['text']
             
             
-            if self.clients.is_bot_mention(msg_txt):
+            #if self.clients.is_bot_mention(msg_txt):
                 # e.g. user typed: "@pybot tell me a joke!"
-                if 'help' in msg_txt:
-                    self.msg_writer.write_help_message(event['channel'])
-                elif 'setmylocation' in msg_txt:
-                    self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
-                elif 'viewmylocation' in msg_txt:
-                    self.msg_writer.viewmylocation(event['channel'], event['user'])
-                elif 'viewlocation' in msg_txt:
-                    self.msg_writer.viewlocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
+            if 'help' in msg_txt:
+                self.msg_writer.write_help_message(event['channel'])
+            elif 'setmylocation' in msg_txt:
+                self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
+            elif 'viewmylocation' in msg_txt:
+                self.msg_writer.viewmylocation(event['channel'], event['user'])
+            elif 'viewlocation' in msg_txt:
+                self.msg_writer.viewlocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
                     
-                elif 'joke' in msg_txt:
-                    self.msg_writer.write_joke(event['channel'])
-                elif 'attachment' in msg_txt:
-                    self.msg_writer.demo_attachment(event['channel'])
-                else:
-                    self.msg_writer.write_prompt(event['channel'])
+            elif 'joke' in msg_txt:
+                self.msg_writer.write_joke(event['channel'])
+            elif 'attachment' in msg_txt:
+                self.msg_writer.demo_attachment(event['channel'])
+            else:
+                self.msg_writer.write_prompt(event['channel'])
