@@ -37,7 +37,8 @@ class Messenger(object):
             for x in txtlist:
                 self.send_message(channel_id, x)
         else:
-            userdict[user_find][0] + " is at " + userdict[user_find][1] + " as of " + userdict[user_find][2]
+            txt = userdict[user_find][0] + " is at " + userdict[user_find][1] + " as of " + userdict[user_find][2]
+            self.send_message(channel_id, txt)
     
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
