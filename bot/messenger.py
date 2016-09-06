@@ -31,7 +31,7 @@ class Messenger(object):
         except KeyError:
             txt = "User has not inputted a location yet"
             self.send_message(channel_id, txt)
-            
+    #        
     def viewlocation(self,channel_id,user_id,user_find):
         if user_find.lower() == 'all':
             txtlist = []
