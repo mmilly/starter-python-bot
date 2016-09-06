@@ -42,8 +42,12 @@ class RtmEventHandler(object):
                 # e.g. user typed: "@pybot tell me a joke!"
                 if 'help' in msg_txt:
                     self.msg_writer.write_help_message(event['channel'])
-                elif re.search('hi|hey|hello|howdy', msg_txt):
-                    self.msg_writer.write_greeting(event['channel'], event['user'])
+                elif 'setmylocation' in msg_txt:
+                    self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
+                elif 'viewmylocation' in msg_txt:
+                    self.msg_writer.viewmylocation(event['channel'], event['user'])
+                    
+                    
                 elif 'joke' in msg_txt:
                     self.msg_writer.write_joke(event['channel'])
                 elif 'attachment' in msg_txt:

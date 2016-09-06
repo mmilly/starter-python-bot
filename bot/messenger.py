@@ -1,8 +1,9 @@
 import logging
 import random
+import time
 
 logger = logging.getLogger(__name__)
-
+dict = {}
 
 class Messenger(object):
     def __init__(self, slack_clients):
@@ -16,6 +17,12 @@ class Messenger(object):
         channel = self.clients.rtm.server.channels.find(channel_id)
         channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
 
+    def setmylocation(self,channel_id,user_id,location):
+        dict[user_id]=(location,time.strftime("%H:%M:%S %m/%d/%y"))
+        
+    def viewmylocation(self,channel_id,user_id):
+        txt = user_id + " is at " + dict[user_id][0] + " as of " + dict[user_id][1]
+        
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
         txt = '{}\n{}\n{}\n{}'.format(
