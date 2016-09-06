@@ -22,9 +22,12 @@ class Messenger(object):
         payload = {'token':self.token,'user':user_id}
         r = requests.get('https://slack.com/api/users.info', params=payload)
         username = str(r.json()['user']['name'])
-        #userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
+        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
         #userdict[user_id]=[username,location,datetime.now(timezone('US/Eastern')).strftime('%H:%M:%S %m/%d/%y')]
-        userdict[user_id]=[username,location,datetime.now().strftime("%H:%M:%S %m/%d/%y")]
+        os.environ['TZ'] = 'US/Eastern'
+        time.tzset()
+        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
+        #userdict[user_id]=[username,location,datetime.now().strftime("%H:%M:%S %m/%d/%y")]
         #
         txt = "Your location was set to " + userdict[user_id][1] + " as of " + userdict[user_id][2]
         self.send_message(channel_id, txt)
