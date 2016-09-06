@@ -30,10 +30,10 @@ class Messenger(object):
         self.send_message(channel_id, txt)
     
     def viewlocation(self,channel_id,user_id,user_find):
-        if user_find.lower() = 'all':
+        if user_find.lower() == 'all':
             txtlist = []
             for k,v in userdict.iteritems():
-                txtlist += [userdict[k][0] + " is at " + userdict[k][1] + " as of " + userdict[k][2]]
+                txtlist += [v[0] + " is at " + v[1] + " as of " + v[2]]
             for x in txtlist:
                 self.send_message(channel_id, x)
         else:
