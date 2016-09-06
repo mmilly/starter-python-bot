@@ -46,7 +46,7 @@ class Messenger(object):
                     self.send_message(channel_id, txt)
                     break
                 txt = "User has not inputted a location yet"
-                self.send_message(channel_id, x)
+                self.send_message(channel_id, txt)
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
         txt = '{}\n{}\n{}\n{}'.format(
