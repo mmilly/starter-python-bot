@@ -22,11 +22,11 @@ class Messenger(object):
         payload = {'token':self.token,'user':user_id}
         r = requests.get('https://slack.com/api/users.info', params=payload)
         username = str(r.json()['user']['name'])
-        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
+        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y"),"PooP"]
         
     def viewmylocation(self,channel_id,user_id):
         
-        txt = userdict[user_id][0] + " is at " + userdict[user_id][1] + " as of " + userdict[user_id][2]
+        txt = userdict[user_id][0] + " is at " + userdict[user_id][1] + " as of " + userdict[user_id][2] + " and " + userdict[user_id][3]
         self.send_message(channel_id, txt)
         
     def write_help_message(self, channel_id):
