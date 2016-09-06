@@ -47,7 +47,8 @@ class RtmEventHandler(object):
                     self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
                 elif 'viewmylocation' in msg_txt:
                     self.msg_writer.viewmylocation(event['channel'], event['user'])
-                    
+                elif 'viewlocation' in msg_txt:
+                    self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
                     
                 elif 'joke' in msg_txt:
                     self.msg_writer.write_joke(event['channel'])

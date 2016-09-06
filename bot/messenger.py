@@ -22,13 +22,23 @@ class Messenger(object):
         payload = {'token':self.token,'user':user_id}
         r = requests.get('https://slack.com/api/users.info', params=payload)
         username = str(r.json()['user']['name'])
-        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y"),"PooP"]
+        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
         
     def viewmylocation(self,channel_id,user_id):
         
-        txt = userdict[user_id][0] + " is at " + userdict[user_id][1] + " as of " + userdict[user_id][2] + " and " + userdict[user_id][3]
+        txt = userdict[user_id][0] + " is at " + userdict[user_id][1] + " as of " + userdict[user_id][2]
         self.send_message(channel_id, txt)
-        
+    
+    def viewlocation(self,channel_id,user_id,user_find):
+        if user_find.lower() = 'all':
+            txtlist = []
+            for k,v in userdict.iteritems():
+                txtlist += [userdict[k][0] + " is at " + userdict[k][1] + " as of " + userdict[k][2]]
+            for x in txtlist:
+                self.send_message(channel_id, x)
+        else:
+            userdict[user_find][0] + " is at " + userdict[user_find][1] + " as of " + userdict[user_find][2]
+    
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
         txt = '{}\n{}\n{}\n{}'.format(
