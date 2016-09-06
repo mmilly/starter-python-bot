@@ -49,7 +49,7 @@ class Messenger(object):
                 self.send_message(channel_id, txt)
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
-        txt = '{}\n{}\n{}\n{}'.format(
+        txt = '{}\n{}\n{}\n{}\n{}'.format(
             "Available commands:",
             "> `setmylocation [location]` - Set your location",
             "> `viewmylocation` - View what your own location is set as",
