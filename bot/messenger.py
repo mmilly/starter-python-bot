@@ -47,11 +47,14 @@ class Messenger(object):
             for x in txtlist:
                 self.send_message(channel_id, x)
         else:
+            gotit = 0
             for k,v in userdict.iteritems():
                 if v[0] == user_find:
                     txt = v[0] + " is at " + v[1] + " as of " + v[2]
                     self.send_message(channel_id, txt)
+                    gotit = 1
                     break
+            if gotit == 0:
                 txt = "User has not inputted a location yet or does not exist"
                 self.send_message(channel_id, txt)
     def write_help_message(self, channel_id):
