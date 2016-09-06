@@ -1,6 +1,7 @@
 import logging
 import random
 import time
+import requests
 
 logger = logging.getLogger(__name__)
 userdict = {}
@@ -8,7 +9,7 @@ userdict = {}
 class Messenger(object):
     def __init__(self, slack_clients):
         self.clients = slack_clients
-
+        self.token = self.clients.get_token()
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
         if isinstance(channel_id, dict):
@@ -18,10 +19,14 @@ class Messenger(object):
         channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
 
     def setmylocation(self,channel_id,user_id,location):
-        userdict[user_id]=(location,time.strftime("%H:%M:%S %m/%d/%y"))
+        payload = {'token':self.token,'user':user_id}
+        r = requests.get('https://slack.com/api/users.info', params=payload)
+        username = str(r.json()['user']['name'])
+        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
         
     def viewmylocation(self,channel_id,user_id):
-        txt = user_id + " is at " + userdict[user_id][0] + " as of " + userdict[user_id][1]
+        
+        txt = userdict[user_id][0] + " is at " + userdict[user_id][1] + " as of " + userdict[user_id][2]
         self.send_message(channel_id, txt)
         
     def write_help_message(self, channel_id):
