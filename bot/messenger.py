@@ -3,7 +3,7 @@ import random
 import time
 
 logger = logging.getLogger(__name__)
-dict = {}
+userdict = {}
 
 class Messenger(object):
     def __init__(self, slack_clients):
@@ -18,10 +18,10 @@ class Messenger(object):
         channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
 
     def setmylocation(self,channel_id,user_id,location):
-        dict[user_id]=(location,time.strftime("%H:%M:%S %m/%d/%y"))
+        userdict[user_id]=(location,time.strftime("%H:%M:%S %m/%d/%y"))
         
     def viewmylocation(self,channel_id,user_id):
-        txt = user_id + " is at " + dict[user_id][0] + " as of " + dict[user_id][1]
+        txt = user_id + " is at " + userdict[user_id][0] + " as of " + userdict[user_id][1]
         self.send_message(channel_id, txt)
         
     def write_help_message(self, channel_id):
