@@ -22,6 +22,7 @@ class Messenger(object):
         
     def viewmylocation(self,channel_id,user_id):
         txt = user_id + " is at " + dict[user_id][0] + " as of " + dict[user_id][1]
+        self.send_message(channel_id, txt)
         
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
