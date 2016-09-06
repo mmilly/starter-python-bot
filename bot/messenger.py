@@ -25,10 +25,13 @@ class Messenger(object):
         userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
         
     def viewmylocation(self,channel_id,user_id):
-        
-        txt = userdict[user_id][0] + " is at " + userdict[user_id][1] + " as of " + userdict[user_id][2]
-        self.send_message(channel_id, txt)
-    
+        try:
+            txt = userdict[user_id][0] + " is at " + userdict[user_id][1] + " as of " + userdict[user_id][2]
+            self.send_message(channel_id, txt)
+        except KeyError:
+            txt = "User has not inputted a location yet"
+            self.send_message(channel_id, txt)
+            
     def viewlocation(self,channel_id,user_id,user_find):
         if user_find.lower() == 'all':
             txtlist = []
@@ -39,9 +42,11 @@ class Messenger(object):
         else:
             for k,v in userdict.iteritems():
                 if v[0] == user_find:
-                    txt = [v[0] + " is at " + v[1] + " as of " + v[2]]
+                    txt = v[0] + " is at " + v[1] + " as of " + v[2]
                     self.send_message(channel_id, txt)
-    
+                    break
+                txt = "User has not inputted a location yet"
+                self.send_message(channel_id, x)
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
         txt = '{}\n{}\n{}\n{}'.format(
