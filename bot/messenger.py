@@ -55,7 +55,7 @@ class Messenger(object):
                     gotit = 1
                     break
             if gotit == 0:
-                txt = "User " + str(user_find) " has not inputted a location yet or does not exist"
+                txt = "User " + str(user_find) + " has not inputted a location yet or does not exist"
                 self.send_message(channel_id, txt)
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
