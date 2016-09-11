@@ -28,7 +28,7 @@ class Messenger(object):
         os.environ['TZ'] = 'US/Eastern'
         time.tzset()
         userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
-        txt = "Your location was set to " + userdict[user_id][1] + " as of " + userdict[user_id][2]
+        txt = userdict[user_id][0] + "'s status: " + userdict[user_id][1] + ". Set at " + userdict[user_id][2].split(' ')[0] + " on " + userdict[user_id][2].split(' ')[1]
         self.send_message(channel_id, txt)
         
     def viewmylocation(self,channel_id,user_id):
@@ -43,19 +43,19 @@ class Messenger(object):
         if user_find.lower() == 'all':
             txtlist = []
             for k,v in userdict.iteritems():
-                txtlist += [v[0] + " is at " + v[1] + " as of " + v[2]]
+                txtlist += [v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ').[0] + " on " + v[2].split(' ').[1]]
             for x in txtlist:
                 self.send_message(channel_id, x)
         else:
             gotit = 0
             for k,v in userdict.iteritems():
                 if v[0] == user_find:
-                    txt = v[0] + " is at " + v[1] + " as of " + v[2]
+                    txt = v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ').[0] + " on " + v[2].split(' ').[1]
                     self.send_message(channel_id, txt)
                     gotit = 1
                     break
             if gotit == 0:
-                txt = "User has not inputted a location yet or does not exist"
+                txt = "User " + str(user_find) " has not inputted a location yet or does not exist"
                 self.send_message(channel_id, txt)
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()

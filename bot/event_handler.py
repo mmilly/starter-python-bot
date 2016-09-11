@@ -19,7 +19,10 @@ class RtmEventHandler(object):
         # See https://api.slack.com/rtm for a full list of events
         if event_type == 'error':
             # error
-            self.msg_writer.write_error(event['channel'], json.dumps(event))
+            try:
+                self.msg_writer.write_error(event['channel'], json.dumps(event))
+            except:
+                pass
         elif event_type == 'message':
             # message was sent to channel
             self._handle_message(event)
@@ -43,12 +46,16 @@ class RtmEventHandler(object):
                 # e.g. user typed: "@pybot tell me a joke!"
             if msg_txt.lower()=='help':
                 self.msg_writer.write_help_message(event['channel'])
-            elif 'setmylocation' in msg_txt:
-                self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
-            elif 'viewmylocation' in msg_txt:
-                self.msg_writer.viewmylocation(event['channel'], event['user'])
-            elif 'viewlocation' in msg_txt:
+            elif msg_txt.lower().split(',')[0] == 'view':
                 self.msg_writer.viewlocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
-                    
             else:
-                self.msg_writer.write_prompt(event['channel'])
+                self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt)
+            #elif 'setmylocation' in msg_txt:
+            #    self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
+            #elif 'viewmylocation' in msg_txt:
+                #self.msg_writer.viewmylocation(event['channel'], event['user'])
+            #elif 'viewlocation' in msg_txt:
+                #self.msg_writer.viewlocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
+                    
+            #else:
+            #    self.msg_writer.write_prompt(event['channel'])
