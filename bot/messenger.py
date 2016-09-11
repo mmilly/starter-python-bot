@@ -43,14 +43,14 @@ class Messenger(object):
         if user_find.lower() == 'all':
             txtlist = []
             for k,v in userdict.iteritems():
-                txtlist += [v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ').[0] + " on " + v[2].split(' ').[1]]
+                txtlist += [v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ')[0] + " on " + v[2].split(' ')[1]]
             for x in txtlist:
                 self.send_message(channel_id, x)
         else:
             gotit = 0
             for k,v in userdict.iteritems():
                 if v[0] == user_find:
-                    txt = v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ').[0] + " on " + v[2].split(' ').[1]
+                    txt = v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ')[0] + " on " + v[2].split(' ')[1]
                     self.send_message(channel_id, txt)
                     gotit = 1
                     break
