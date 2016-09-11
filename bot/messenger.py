@@ -28,7 +28,7 @@ class Messenger(object):
         os.environ['TZ'] = 'US/Eastern'
         time.tzset()
         userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
-        txt = userdict[user_id][0] + "'s status: " + userdict[user_id][1] + ". Set at " + userdict[user_id][2].split(' ')[0] + " on " + userdict[user_id][2].split(' ')[1]
+        txt = "Your status is now: " + userdict[user_id][1] + ". Set at " + userdict[user_id][2].split(' ')[0] + " on " + userdict[user_id][2].split(' ')[1]
         self.send_message(channel_id, txt)
         
     def viewmylocation(self,channel_id,user_id):
