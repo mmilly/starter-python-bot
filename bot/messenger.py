@@ -7,6 +7,7 @@ import requests
 
 logger = logging.getLogger(__name__)
 userdict = {}
+mostRecent = []
 
 class Messenger(object):
     def __init__(self, slack_clients):
@@ -29,6 +30,9 @@ class Messenger(object):
         time.tzset()
         userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
         txt = "Your status is now: " + userdict[user_id][1] + ". Set at " + userdict[user_id][2].split(' ')[0] + " on " + userdict[user_id][2].split(' ')[1]
+        if user_id in mostRecent:
+            mostRecent.remove(user_id)
+        mostRecent.append(user_id)
         self.send_message(channel_id, txt)
         
     def viewmylocation(self,channel_id,user_id):
@@ -42,8 +46,11 @@ class Messenger(object):
     def viewlocation(self,channel_id,user_id,user_find):
         if user_find.lower() == 'all':
             txtlist = []
-            for k,v in userdict.iteritems():
-                txtlist += [v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ')[0] + " on " + v[2].split(' ')[1]]
+            
+            #for k,v in userdict.iteritems():
+            #    txtlist += [v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ')[0] + " on " + v[2].split(' ')[1]]
+            for uid in mostRecent:
+                txtlist += [userdict[uid][0] + "'s status: " + userdict[uid][1] + ". Set at " + userdict[uid][2].split(' ')[0] + " on " + userdict[uid].split(' ')[1]]
             for x in txtlist:
                 self.send_message(channel_id, x)
         else:
