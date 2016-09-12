@@ -9,7 +9,18 @@ class RtmEventHandler(object):
     def __init__(self, slack_clients, msg_writer):
         self.clients = slack_clients
         self.msg_writer = msg_writer
-
+        
+        self.token = self.clients.get_token()
+        payload = {'token':self.token}
+        r = requests.get('https://slack.com/api/im.list', params=payload)
+        IMIDs = []
+        for x in r.json()['ims']:
+            IMIDs += str(x['user'])
+        if 'USLACKBOT' in IMIDs:
+            IMIDs.remove('USLACKBOT')
+        for chan in IMIDs:
+            self.msg_writer.send_message(chan,"testing this")
+            
     def handle(self, event):
 
         if 'type' in event:
