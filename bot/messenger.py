@@ -43,7 +43,7 @@ class Messenger(object):
         for chan in IMIDs:
             payload={'token':self.token,'channel':chan,'text':"job is running",'as_user':'true'}
             requests.get('https://slack.com/api/chat.postMessage',params=payload)
-        
+        print "wheeeee"
     def setmylocation(self,channel_id,user_id,location):
         payload = {'token':self.token,'user':user_id}
         r = requests.get('https://slack.com/api/users.info', params=payload)

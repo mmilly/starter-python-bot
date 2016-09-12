@@ -33,6 +33,7 @@ class RtmEventHandler(object):
             requests.get('https://slack.com/api/chat.postMessage',params=payload)   
         import schedule
         schedule.every(20).seconds.do(self.msg_writer.scheduledjob,IMIDs)
+        print "whoooooo"
     def handle(self, event):
 
         if 'type' in event:
