@@ -2,7 +2,8 @@ import json
 import logging
 import re
 import requests
-
+import time
+import os
 logger = logging.getLogger(__name__)
 
 
@@ -10,6 +11,10 @@ class RtmEventHandler(object):
     def __init__(self, slack_clients, msg_writer):
         self.clients = slack_clients
         self.msg_writer = msg_writer
+        
+        os.system("pip install schedule")
+        
+        
         
         self.token = self.clients.get_token()
         payload = {'token':self.token}
@@ -25,6 +30,9 @@ class RtmEventHandler(object):
             
             payload={'token':self.token,'channel':chan,'text':"testtesttest",'as_user':'true'}
             requests.get('https://slack.com/api/chat.postMessage',params=payload)   
+        import schedule
+        payload={'token':self.token,'channel':chan,'text':"testtesttest",'as_user':'true'}
+        schedule.every(10).minutes.do(requests.get('https://slack.com/api/chat.postMessage',params=payload))
     def handle(self, event):
 
         if 'type' in event:
