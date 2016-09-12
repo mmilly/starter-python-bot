@@ -1,6 +1,7 @@
 import json
 import logging
 import re
+import requests
 
 logger = logging.getLogger(__name__)
 
