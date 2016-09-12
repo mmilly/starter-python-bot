@@ -12,7 +12,8 @@ class RtmEventHandler(object):
     def __init__(self, slack_clients, msg_writer):
         self.clients = slack_clients
         self.msg_writer = msg_writer
-        print "trollolol"
+       
+       '''
         os.system("pip install schedule")
         
         
@@ -27,13 +28,11 @@ class RtmEventHandler(object):
             IMIDs.remove('USLACKBOT')
         #print IMIDs
         for chan in IMIDs:
-            #self.msg_writer.send_message(chan,"testing this")
-            
             payload={'token':self.token,'channel':chan,'text':"testtesttest",'as_user':'true'}
             requests.get('https://slack.com/api/chat.postMessage',params=payload)   
         import schedule
         schedule.every(20).seconds.do(self.msg_writer.scheduledjob,IMIDs)
-        print "whoooooo"
+        '''
     def handle(self, event):
 
         if 'type' in event:

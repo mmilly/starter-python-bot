@@ -32,18 +32,18 @@ class Messenger(object):
         
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
-        #print channel_id
+      
         if isinstance(channel_id, dict):
             channel_id = channel_id['id']
         logger.debug('Sending msg: {} to channel: {}'.format(msg, channel_id))
         channel = self.clients.rtm.server.channels.find(channel_id)
-        #print channel
+
         channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
     def scheduledjob(self, IMIDs):
         for chan in IMIDs:
             payload={'token':self.token,'channel':chan,'text':"job is running",'as_user':'true'}
             requests.get('https://slack.com/api/chat.postMessage',params=payload)
-        print "wheeeee"
+    
     def setmylocation(self,channel_id,user_id,location):
         payload = {'token':self.token,'user':user_id}
         r = requests.get('https://slack.com/api/users.info', params=payload)
