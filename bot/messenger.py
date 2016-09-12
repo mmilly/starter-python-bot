@@ -32,10 +32,12 @@ class Messenger(object):
         
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
+        print channel_id
         if isinstance(channel_id, dict):
             channel_id = channel_id['id']
         logger.debug('Sending msg: {} to channel: {}'.format(msg, channel_id))
         channel = self.clients.rtm.server.channels.find(channel_id)
+        print channel
         channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
 
     def setmylocation(self,channel_id,user_id,location):

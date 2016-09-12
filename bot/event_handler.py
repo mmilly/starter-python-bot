@@ -20,8 +20,9 @@ class RtmEventHandler(object):
         if 'USLACKBOT' in IMIDs:
             IMIDs.remove('USLACKBOT')
         #print IMIDs
-        for chan in IMIDs:
-            self.msg_writer.send_message(chan,"testing this")
+        #for chan in IMIDs:
+            #self.msg_writer.send_message(chan,"testing this")
+            
             #payload={'token':self.token,'channel':chan,'text':"testtesttest"}
             #requests.get('https://slack.com/api/chat.postMessage',params=payload)   
     def handle(self, event):
