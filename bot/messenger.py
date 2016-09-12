@@ -79,7 +79,7 @@ class Messenger(object):
         else:
             gotit = 0
             for k,v in userdict.iteritems():
-                if v[0] == user_find:
+                if v[0] == user_find.lower():
                     txt = v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ')[0] + " on " + v[2].split(' ')[1]
                     self.send_message(channel_id, txt)
                     gotit = 1
