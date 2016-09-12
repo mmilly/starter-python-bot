@@ -89,13 +89,11 @@ class Messenger(object):
                 self.send_message(channel_id, txt)
     def write_help_message(self, channel_id):
         bot_uid = self.clients.bot_user_id()
-        txt = '{}\n{}\n{}\n{}\n{}\n{}'.format(
+        txt = '{}\n{}\n{}\n{}'.format(
             "Available commands:",
-            "> `setmylocation [location]` - Set your location",
-            "> `viewmylocation` - View what your own location is set as",
-            "> `viewlocation [username]` - View location of user",
-            "> `viewlocation all` - View location of all users",
-            "please note: location can only be one word")
+            "> `[type anything]` - Set your status",
+            "> `view all` - View location of all users",
+            "> `view [username]` - View location of user")
         self.send_message(channel_id, txt)
 
     def write_prompt(self, channel_id):
