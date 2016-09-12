@@ -50,7 +50,7 @@ class Messenger(object):
             #for k,v in userdict.iteritems():
             #    txtlist += [v[0] + "'s status: " + v[1] + ". Set at " + v[2].split(' ')[0] + " on " + v[2].split(' ')[1]]
             for uid in mostRecent:
-                txtlist += [userdict[uid][0] + "'s status: " + userdict[uid][1] + ". Set at " + userdict[uid][2].split(' ')[0] + " on " + userdict[uid].split(' ')[1]]
+                txtlist += [userdict[uid][0] + "'s status: " + userdict[uid][1] + ". Set at " + userdict[uid][2].split(' ')[0] + " on " + userdict[uid][2].split(' ')[1]]
             for x in txtlist:
                 self.send_message(channel_id, x)
         else:
