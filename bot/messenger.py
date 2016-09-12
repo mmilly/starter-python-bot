@@ -51,7 +51,7 @@ class Messenger(object):
         userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
         os.environ['TZ'] = 'US/Eastern'
         time.tzset()
-        userdict[user_id]=[username,location,time.strftime("%H:%M:%S %m/%d/%y")]
+        userdict[user_id]=[username,location[0:500],time.strftime("%H:%M:%S %m/%d/%y")]
         txt = "Your status is now: " + userdict[user_id][1] + ". Set at " + userdict[user_id][2].split(' ')[0] + " on " + userdict[user_id][2].split(' ')[1]
         if user_id in mostRecent:
             mostRecent.remove(user_id)
