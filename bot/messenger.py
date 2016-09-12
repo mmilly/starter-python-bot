@@ -22,6 +22,17 @@ class Messenger(object):
         self.clients = slack_clients
         self.token = self.clients.get_token()
         
+        
+        def send_message(self, channel_id, msg):
+            # in the case of Group and Private channels, RTM channel payload is a complex dictionary
+            if isinstance(channel_id, dict):
+                channel_id = channel_id['id']
+            logger.debug('Sending msg: {} to channel: {}'.format(msg, channel_id))
+            channel = self.clients.rtm.server.channels.find(channel_id)
+            channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
+        
+        
+        
         payload = {'token':self.token}
         r = requests.get('https://slack.com/api/im.list', params=payload)
         IMIDs = []
