@@ -22,7 +22,8 @@ class Messenger(object):
         if 'USLACKBOT' in IMIDs:
             IMIDs.remove('ULACKBOT')
         for chan in IMIDs:
-            send_message(chan,"hi ho")
+            payload={'token':self.token,'channel':chan,'text':"testtesttest"}
+            requests.get('https://slack.com/api/chat.postMessage',params=payload)
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
         if isinstance(channel_id, dict):
