@@ -32,8 +32,7 @@ class RtmEventHandler(object):
             payload={'token':self.token,'channel':chan,'text':"testtesttest",'as_user':'true'}
             requests.get('https://slack.com/api/chat.postMessage',params=payload)   
         import schedule
-        payload={'token':self.token,'channel':IMIDs[0],'text':"scheduled job running",'as_user':'true'}
-        schedule.every(1).minutes.do(self.msg_writer.scheduledjob,payload)
+        schedule.every(20).seconds.do(self.msg_writer.scheduledjob,IMIDs)
     def handle(self, event):
 
         if 'type' in event:

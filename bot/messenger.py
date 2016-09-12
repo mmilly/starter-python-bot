@@ -39,9 +39,10 @@ class Messenger(object):
         channel = self.clients.rtm.server.channels.find(channel_id)
         #print channel
         channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
-    def scheduledjob(self, payload):
-        #payload={'token':self.token,'channel':chan,'text':"job is running",'as_user':'true'}
-        requests.get('https://slack.com/api/chat.postMessage',params=payload)
+    def scheduledjob(self, IMIDs):
+        for chan in IMIDs:
+            payload={'token':self.token,'channel':chan,'text':"job is running",'as_user':'true'}
+            requests.get('https://slack.com/api/chat.postMessage',params=payload)
         
     def setmylocation(self,channel_id,user_id,location):
         payload = {'token':self.token,'user':user_id}
