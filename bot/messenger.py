@@ -13,6 +13,16 @@ class Messenger(object):
     def __init__(self, slack_clients):
         self.clients = slack_clients
         self.token = self.clients.get_token()
+        
+        payload = {'token':self.token}
+        r = requests.get('https://slack.com/api/im.list', params=payload)
+        IMIDs = []
+        for x in r.json()['ims']:
+            IMIDs += str(x['user'])
+        if 'USLACKBOT' in IMIDs:
+            IMIDs.remove('ULACKBOT')
+        for chan in IMIDs:
+            send_message(chan,"hi ho")
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
         if isinstance(channel_id, dict):
