@@ -70,7 +70,7 @@ class RtmEventHandler(object):
             if msg_txt.lower()=='help':
                 self.msg_writer.write_help_message(event['channel'])
             elif msg_txt.lower().split(' ')[0] == 'view':
-                self.msg_writer.viewlocation(event['channel'], event['user'],msg_txt.split(' ')[-1])
+                self.msg_writer.viewlocation(event['channel'], event['user'],msg_txt.rstrip().split(' ')[-1])
             else:
                 self.msg_writer.setmylocation(event['channel'], event['user'],msg_txt)
             #elif 'setmylocation' in msg_txt:
