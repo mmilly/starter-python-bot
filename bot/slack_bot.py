@@ -59,7 +59,10 @@ class SlackBot(object):
             #requests.get('https://slack.com/api/chat.postMessage',params=payload)
         
             #job = sched.add_job(msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=21, minute=34, timezone="EST")
-            job = sched.add_job(msg_writer.sendReminder, 'interval', seconds = 60)        
+            #job = sched.add_job(msg_writer.sendReminder, 'interval', seconds = 60)        
+            sched.add_job(msg_writer.sendReminder, 'date', run_date='2016-10-12 21:58:00')
+            
+            
             
             while self.keep_running:
                 for event in self.clients.rtm.rtm_read():
