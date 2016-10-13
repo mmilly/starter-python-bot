@@ -60,7 +60,7 @@ class SlackBot(object):
         
             #job = sched.add_job(msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=21, minute=34, timezone="EST")
             #job = sched.add_job(msg_writer.sendReminder, 'interval', seconds = 60)        
-            sched.add_job(msg_writer.sendReminder, 'date', run_date='2016-10-12 21:58:00')
+            sched.add_job(msg_writer.sendReminder, 'date', run_date='2016-10-12 22:00:00', timezone="EST")
             
             
             
