@@ -4,6 +4,7 @@ import re
 import requests
 import time
 import os
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +19,9 @@ class RtmEventHandler(object):
         sched = BackgroundScheduler()
         sched.start()
         os.environ['TZ'] = 'US/Eastern'
-        job = sched.add_job(self.msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=20, minute=58, timezone="EST")
+        time.tzset()
+        print datetime.datetime.now().time()
+        job = sched.add_job(self.msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=21, minute=5)
         
    
         
