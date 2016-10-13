@@ -15,19 +15,7 @@ class RtmEventHandler(object):
         self.msg_writer = msg_writer
         self.token = self.clients.get_token()
 
-        os.system("pip install apscheduler")
-        from apscheduler.schedulers.background import BackgroundScheduler
-        #
-        sched = BackgroundScheduler()
-        sched.start()
-        os.environ['TZ'] = 'US/Eastern'
-        time.tzset()
-        
-        #payload={'token':self.token,'channel':"U22KTJUTZ",'text':str(datetime.datetime.now().time()),'as_user':'true'}
-        #requests.get('https://slack.com/api/chat.postMessage',params=payload)
-        
-        job = sched.add_job(self.msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=21, minute=24, timezone="EST")
-        
+
    
         
         

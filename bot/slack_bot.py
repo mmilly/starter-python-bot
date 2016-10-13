@@ -1,7 +1,7 @@
 import time
 import logging
 import traceback
-
+import os
 from slack_clients import SlackClients
 from messenger import Messenger
 from event_handler import RtmEventHandler
@@ -47,6 +47,20 @@ class SlackBot(object):
             msg_writer = Messenger(self.clients)
             event_handler = RtmEventHandler(self.clients, msg_writer)
 
+            os.system("pip install apscheduler")
+            from apscheduler.schedulers.background import BackgroundScheduler
+            #
+            sched = BackgroundScheduler()
+            sched.start()
+            os.environ['TZ'] = 'US/Eastern'
+            time.tzset()
+        
+            #payload={'token':self.token,'channel':"U22KTJUTZ",'text':str(datetime.datetime.now().time()),'as_user':'true'}
+            #requests.get('https://slack.com/api/chat.postMessage',params=payload)
+        
+            job = sched.add_job(msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=21, minute=34, timezone="EST")
+                    
+            
             while self.keep_running:
                 for event in self.clients.rtm.rtm_read():
                     try:
