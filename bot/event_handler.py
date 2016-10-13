@@ -27,7 +27,7 @@ class RtmEventHandler(object):
         payload={'token':self.token,'channel':"U22KTJUTZ",'text':str(datetime.datetime.now().time()),'as_user':'true'}
         requests.get('https://slack.com/api/chat.postMessage',params=payload)
         
-        job = sched.add_job(self.msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=21, minute=15)
+        job = sched.add_job(self.msg_writer.sendReminder(), 'cron', day_of_week='mon-fri', hour=21, minute=30)
         
    
         
