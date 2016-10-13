@@ -4,6 +4,7 @@ import random
 import time
 import os
 import requests
+import datetime
 
 logger = logging.getLogger(__name__)
 userdict = {}
@@ -24,7 +25,7 @@ class Messenger(object):
         if 'USLACKBOT' in IMIDs:
             IMIDs.remove('USLACKBOT')
         for chan in IMIDs:
-            payload={'token':self.token,'channel':chan,'text':"test2134",'as_user':'true'}
+            payload={'token':self.token,'channel':chan,'text':str(datetime.datetime.now().time()),'as_user':'true'}
             requests.get('https://slack.com/api/chat.postMessage',params=payload)   
         
     def send_message(self, channel_id, msg):
