@@ -4,6 +4,7 @@ import re
 import requests
 import time
 import os
+from apscheduler.schedulers.background import BackgroundScheduler
 
 logger = logging.getLogger(__name__)
 
@@ -13,26 +14,16 @@ class RtmEventHandler(object):
         self.clients = slack_clients
         self.msg_writer = msg_writer
        
-        '''
-        os.system("pip install schedule")
+        sched = BackgroundScheduler()
+        sched.start()
+        job = sched.add_job(self.msg_writer.sendReminder(), 'cron', day_of_week='mon-fri', hour=20, minute=32)
+        
+        #os.system("pip install schedule")
         
         
+   
         
-        self.token = self.clients.get_token()
-        payload = {'token':self.token}
-        r = requests.get('https://slack.com/api/im.list', params=payload)
-        IMIDs = []
-        for x in r.json()['ims']:
-            IMIDs += [str(x['user'])]
-        if 'USLACKBOT' in IMIDs:
-            IMIDs.remove('USLACKBOT')
-        #print IMIDs
-        for chan in IMIDs:
-            payload={'token':self.token,'channel':chan,'text':"testtesttest",'as_user':'true'}
-            requests.get('https://slack.com/api/chat.postMessage',params=payload)   
-        import schedule
-        schedule.every(20).seconds.do(self.msg_writer.scheduledjob,IMIDs)
-        '''
+        
     def handle(self, event):
 
         if 'type' in event:

@@ -15,20 +15,17 @@ class Messenger(object):
         self.clients = slack_clients
         self.token = self.clients.get_token()
         
-       
-        '''
+    def sendReminder(self):    
         payload = {'token':self.token}
         r = requests.get('https://slack.com/api/im.list', params=payload)
         IMIDs = []
         for x in r.json()['ims']:
-            IMIDs += str(x['user'])
+            IMIDs += [str(x['user'])]
         if 'USLACKBOT' in IMIDs:
             IMIDs.remove('USLACKBOT')
         for chan in IMIDs:
-            self.send_message(chan,"testing this")
-        #    payload={'token':self.token,'channel':chan,'text':"testtesttest"}
-        #    requests.get('https://slack.com/api/chat.postMessage',params=payload)
-        '''
+            payload={'token':self.token,'channel':chan,'text':"testtesttest",'as_user':'true'}
+            requests.get('https://slack.com/api/chat.postMessage',params=payload)   
         
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
