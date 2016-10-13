@@ -17,7 +17,7 @@ class RtmEventHandler(object):
 
         sched = BackgroundScheduler()
         sched.start()
-        job = sched.add_job(self.msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=20, minute=32)
+        job = sched.add_job(self.msg_writer.sendReminder, 'cron', day_of_week='mon-fri', hour=20, minute=40)
         
    
         
