@@ -4,7 +4,6 @@ import re
 import requests
 import time
 import os
-from apscheduler.schedulers.background import BackgroundScheduler
 
 logger = logging.getLogger(__name__)
 
@@ -13,12 +12,14 @@ class RtmEventHandler(object):
     def __init__(self, slack_clients, msg_writer):
         self.clients = slack_clients
         self.msg_writer = msg_writer
-       
+        os.system("pip install apscheduler")
+        from apscheduler.schedulers.background import BackgroundScheduler
+
         sched = BackgroundScheduler()
         sched.start()
         job = sched.add_job(self.msg_writer.sendReminder(), 'cron', day_of_week='mon-fri', hour=20, minute=32)
         
-        #os.system("pip install schedule")
+   
         
         
    
